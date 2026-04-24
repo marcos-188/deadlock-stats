@@ -1,5 +1,8 @@
 import http.client
 import json
+import id_scrapper
+from id_scrapper import steam_id_scrapper
+
 
 def pobierz_gry(gry_count, steam_id, czy_brawl):
     conn = http.client.HTTPSConnection("api.deadlock-api.com")
@@ -44,11 +47,11 @@ def wypisz_staty(gry):
     print(f"Win rate : {oblicz_winrate(gry)}")
     print(f"Średni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut")
     print()
-
+#@#@#@#
 def main():
     print("Statystyki Deadlock dla biednych :)")
     gry_count = int(input("Z ilu ostatnich gier pobrać dane : "))
-    steam_id = input("Podaj SteamID32: ")
+    steam_id = steam_id_scrapper(input("Podaj link do profilu steam : "))
     czy_brawl = int(input("Czy liczyć gry Brawl (0 - nie, 1 - tak, 2 - tylko brawl : "))
 
     ostatnie_gry = pobierz_gry(gry_count, steam_id, czy_brawl)
