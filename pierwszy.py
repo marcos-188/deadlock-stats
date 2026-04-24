@@ -44,7 +44,7 @@ def wypisz_staty(gry):
     print(f"Win rate : {oblicz_winrate(gry)}")
     print(f"Średni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut")
     print()
-
+#@#@#@#
 def main():
     print("Statystyki Deadlock dla biednych :)")
     gry_count = int(input("Z ilu ostatnich gier pobrać dane : "))
