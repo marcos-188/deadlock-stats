@@ -11,13 +11,14 @@ def steam_id_scrapper(profil):
         match = re.search(r'/profiles/(\d+)', profil)
         if match:
             steamid64 = int(match.group(1))
+            return steamid64 - 76561197960265728
     elif '/id/' in profil:
         try:
             # Rozbijamy URL na domenę i ścieżkę dla http.client
             parsed_url = urllib.parse.urlparse(profil)
 
             # Nawiązujemy bezpieczne połączenie (HTTPS)
-            conn = http.client.HTTPSConnection(parsed_url.netloc, timeout=5)
+            conn = http.client.HTTPSConnection(parsed_url.netloc, timeout=1)
             conn.request("GET", parsed_url.path)
             response = conn.getresponse()
 
@@ -30,13 +31,14 @@ def steam_id_scrapper(profil):
                 if match:
                     profile_data = json.loads(match.group(1))
                     steamid64 = int(profile_data.get('steamid'))
+                    conn.close()
+                    return steamid64 - 76561197960265728
                 else:
                     return "Nie znaleziono danych w kodzie strony. Profil może nie istnieć."
             else:
-                return f"Błąd połączenia. Kod statusu HTTP: {response.status}"
-
-            conn.close()
+                return f"Błąd połączenia. Kod statusu HTTP: {response.status} "
 
         except Exception as e:
-            return f"Wystąpił błąd podczas komunikacji: {e}"
-    return steamid64 - 76561197960265728
+            return f"Wystąpił błąd podczas komunikacji: {e}\nPrawdopodobnie podano zły link."
+    else:
+        return "Prawdopodobnie podano zły link, podaj pełny link do profilu Steam, np - https://steamcommunity.com/id/profil"
