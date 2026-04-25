@@ -34,15 +34,24 @@ def oblicz_winrate(gry):
             win += 1
     return round(win / len(gry) * 100, 2)
 
-def wypisz_staty(gry):
+#def wypisz_statystyki(gry):
     print(f"Statystyki z ostatnich {len(gry)} gier : ")
     print(f"Średnia zabójstw : {avg_stat('player_kills',gry)}")
     print(f"Średnia śmierci : {avg_stat('player_deaths',gry)}")
     print(f"Średnia asyst : {avg_stat('player_assists',gry)}")
-    print(f"K/D : {round(avg_stat('player_assists',gry)/avg_stat('player_deaths',gry),2)}")
+    print(f"K/D : {round(avg_stat('player_kills',gry)/avg_stat('player_deaths',gry),2)}")
     print(f"Win rate : {oblicz_winrate(gry)}")
     print(f"Średni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut")
     print()
+
+def wypisz_statystyki(gry):
+    return (f'''Statystyki z ostatnich {len(gry)} gier :
+    \nŚrednia zabójstw : {avg_stat('player_kills',gry)}
+    \nŚrednia śmierci : {avg_stat('player_deaths',gry)}
+    \nŚrednia asyst : {avg_stat('player_assists',gry)}
+    \nK/D : {round(avg_stat('player_kills',gry)/avg_stat('player_deaths',gry),2)}
+    \nWin rate : {oblicz_winrate(gry)}
+    \nŚredni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut''')
 
 def steam_id_find():
     while True:
