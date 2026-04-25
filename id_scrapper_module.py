@@ -41,4 +41,4 @@ def steam_id_scrapper(profil):
         except Exception as e:
             return f"Wystąpił błąd podczas komunikacji: {e}\nPrawdopodobnie podano zły link."
     else:
-        return "Prawdopodobnie podano zły link, podaj pełny link do profilu Steam, np - https://steamcommunity.com/id/profil"
+        return "Prawdopodobnie podano zły link. \nPodaj pełny link do profilu Steam, np - https://steamcommunity.com/id/profil"

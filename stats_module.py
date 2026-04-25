@@ -13,11 +13,12 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
         dane = [x for x in json.loads(surowe_dane) if x.get('game_mode') == 4]
     else:
         dane = json.loads(surowe_dane)
-    if gry_count > len(dane): #jeżeli użytkownik podał że chce pobrać więcej gier niż zagrał to liczba gier do pobrania = liczba gier użytkownika
+    if gry_count > len(dane) or gry_count == 0: #jeżeli nie ma aż tylu gier albo wybrano wszystkie zwraca wszystko co znajdzie
         gry_count = len(dane)
     zwrot = dane[:gry_count]
     conn.close()
     return zwrot
+
 #asas
 def avg_stat(stat, gry):
     suma = 0
@@ -50,6 +51,13 @@ def steam_id_find():
             return wynik
         else:
             print(f"Błąd. {wynik}")
+
+def steam_id_find_gui(steam_link):
+    wynik = steam_id_scrapper(steam_link)
+    if isinstance(wynik, int):
+        return wynik
+    else:
+        raise ValueError(f"Nie udało się pobrać ID: {wynik}")
 
 def main():
     print("Statystyki Deadlock dla biednych :)")
