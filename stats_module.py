@@ -19,12 +19,10 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
     conn.close()
     return zwrot
 
-#asas
 def avg_stat(stat, gry):
     suma = 0
     for gra in gry:
         suma += gra[stat]
-        #print(f"debug - gra {gra['match_id']}, stat{gra[stat]}")
     return round(suma / len(gry),2)
 
 def oblicz_winrate(gry):
@@ -33,16 +31,6 @@ def oblicz_winrate(gry):
         if gra['player_team'] == gra['match_result']:
             win += 1
     return round(win / len(gry) * 100, 2)
-
-#def wypisz_statystyki(gry):
-    print(f"Statystyki z ostatnich {len(gry)} gier : ")
-    print(f"Średnia zabójstw : {avg_stat('player_kills',gry)}")
-    print(f"Średnia śmierci : {avg_stat('player_deaths',gry)}")
-    print(f"Średnia asyst : {avg_stat('player_assists',gry)}")
-    print(f"K/D : {round(avg_stat('player_kills',gry)/avg_stat('player_deaths',gry),2)}")
-    print(f"Win rate : {oblicz_winrate(gry)}")
-    print(f"Średni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut")
-    print()
 
 def wypisz_statystyki(gry):
     return (f'''Statystyki z ostatnich {len(gry)} gier :
@@ -75,7 +63,6 @@ def main():
     czy_brawl = int(input("Czy liczyć gry Brawl (0 - nie, 1 - tak, 2 - tylko brawl : "))
     ostatnie_gry = pobierz_gry(gry_count, steam_id, czy_brawl)
     wypisz_statystyki(ostatnie_gry)
-    #print(ostatnie_gry)
     input("Nacisnij cokolwiek aby zamknąć")
 
 if __name__ == "__main__":
