@@ -1,7 +1,7 @@
 import http.client
 import json
-import id_scrapper
-from id_scrapper import steam_id_scrapper
+import id_scrapper_module
+from id_scrapper_module import steam_id_scrapper
 
 
 def pobierz_gry(gry_count, steam_id, czy_brawl):
