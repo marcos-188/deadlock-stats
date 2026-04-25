@@ -12,6 +12,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.pobrane_gry = None
         self.setWindowTitle("Deadlock Stats")
 
         #główne okno
@@ -87,12 +88,13 @@ class MainWindow(QMainWindow):
         try:
             steam_id = steam_id_find_gui(steam_link)
             self.pobrane_gry = pobierz_gry(ile_gier,steam_id, czy_brawl)
-            print(len(self.pobrane_gry))
-            self.button_statystyki.setEnabled(True)
-            QMessageBox.information(self,"Sukces",f"Pobrano {len(self.pobrane_gry)} gier.")
-            #print(f"znaleziono - {steam_id}")
-            #print(ile_gier)
-            #print(czy_brawl)
+            if len(self.pobrane_gry) == 0:
+                QMessageBox.warning(self, "Błąd", "Nie rozegrano jeszcze żadnej gry lub podano złe konto")
+                self.line_edit_link.clear()
+            else:
+                self.button_statystyki.setEnabled(True)
+                QMessageBox.information(self,"Sukces",f"Pobrano {len(self.pobrane_gry)} gier.")
+
         except ValueError as e:
             error_message = str(e)
             QMessageBox.warning(self, "Błąd", error_message)
@@ -102,8 +104,6 @@ class MainWindow(QMainWindow):
     def statystyki_clicked(self):
         pobrane_satatystyki = wypisz_statystyki(self.pobrane_gry)
         QMessageBox.information(self, "Statystyki", pobrane_satatystyki)
-
-
 
 app = QApplication()
 window = MainWindow()
