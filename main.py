@@ -14,15 +14,23 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Deadlock Stats")
 
+        #główne okno
         container = QWidget()
         self.setCentralWidget(container)
-
         layout = QVBoxLayout(container)
 
         label_1 = QLabel("Wprowadzanie danych")
         label_1.setAlignment(Qt.AlignCenter)
 
         self.line_edit_link = QLineEdit(placeholderText="Link do profilu Steam")
+
+        #container z combo boxami
+        containter_combo_boxy = QWidget()
+        layout_combo_boxy = QHBoxLayout(containter_combo_boxy)
+
+        # container z combo box ile
+        containter_combo_ile = QWidget()
+        layout_combo_ile = QVBoxLayout(containter_combo_ile)
 
         label_2 = QLabel("Ile gier")
         label_2.setAlignment(Qt.AlignCenter)
@@ -34,6 +42,12 @@ class MainWindow(QMainWindow):
         self.combo_box_ile_gier.addItem("25",25)
         self.combo_box_ile_gier.addItem("50",50)
         self.combo_box_ile_gier.addItem("100",100)
+
+        # container z combo box brawl
+        containter_combo_brawl = QWidget()
+        layout_combo_brawl = QVBoxLayout(containter_combo_brawl)
+        label_3 = QLabel("Jakie tryby gier uwzględniać")
+        label_3.setAlignment(Qt.AlignCenter)
 
         self.combo_box_czy_brawl = QComboBox()
         self.combo_box_czy_brawl.addItems(["Tylko zwykłe gry", "Wszystkie gry", "Tylko gry Brawl"])
@@ -48,13 +62,19 @@ class MainWindow(QMainWindow):
         self.button_statystyki.clicked.connect(self.statystyki_clicked)
         self.button_statystyki.setEnabled(False)
 
-
         layout.addWidget(label_1)
         layout.addWidget(self.line_edit_link)
-        layout.addWidget(label_2)
-        layout.addWidget(self.combo_box_ile_gier)
-        layout.addWidget(self.combo_box_czy_brawl)
+        layout.addWidget(containter_combo_boxy)
         layout.addWidget(container_buttony)
+
+        layout_combo_boxy.addWidget(containter_combo_ile)
+        layout_combo_boxy.addWidget(containter_combo_brawl)
+
+        layout_combo_ile.addWidget(label_2)
+        layout_combo_ile.addWidget(self.combo_box_ile_gier)
+
+        layout_combo_brawl.addWidget(label_3)
+        layout_combo_brawl.addWidget(self.combo_box_czy_brawl)
 
         layout_buttony.addWidget(self.button_szukaj)
         layout_buttony.addWidget(self.button_statystyki)
@@ -85,15 +105,8 @@ class MainWindow(QMainWindow):
 
 
 
-
-
-
-
-
-
-
-
 app = QApplication()
 window = MainWindow()
+window.setFixedSize(500, 350)
 window.show()
 app.exec()
