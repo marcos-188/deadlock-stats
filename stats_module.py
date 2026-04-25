@@ -74,7 +74,7 @@ def main():
     steam_id = steam_id_find()
     czy_brawl = int(input("Czy liczyć gry Brawl (0 - nie, 1 - tak, 2 - tylko brawl : "))
     ostatnie_gry = pobierz_gry(gry_count, steam_id, czy_brawl)
-    wypisz_staty(ostatnie_gry)
+    wypisz_statystyki(ostatnie_gry)
     #print(ostatnie_gry)
     input("Nacisnij cokolwiek aby zamknąć")
 

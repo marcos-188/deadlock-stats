@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         container_buttony = QWidget()
         layout_buttony = QHBoxLayout(container_buttony)
 
-        self.button_szukaj = QPushButton("Szukaj")
+        self.button_szukaj = QPushButton("Pobierz")
         self.button_szukaj.clicked.connect(self.szukaj_clicked)
 
         self.button_statystyki = QPushButton("Statystyki")
