@@ -1,5 +1,7 @@
 import http.client
 import json
+from asyncio.windows_events import NULL
+
 from id_scrapper_module import steam_id_scrapper
 
 def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-api
@@ -22,8 +24,19 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
 def avg_stat(stat, gry):
     suma = 0
     for gra in gry:
-        suma += gra[stat]
+        if gra[stat]:
+            suma += gra[stat]
+        else:
+            suma += 0
     return round(suma / len(gry),2)
+
+def max_stat(stat, gry):
+    max_s = 0
+    for gra in gry:
+        if gra[stat]:
+            if gra[stat] > max_s:
+                max_s = gra[stat]
+    return max_s
 
 def oblicz_winrate(gry):
     win = 0

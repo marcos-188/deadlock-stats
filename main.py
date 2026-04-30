@@ -50,10 +50,6 @@ class MainWindow(QMainWindow):
         else:
             self.line_edit_link.setPlaceholderText("Podaj link do profilu Steam")
 
-
-
-
-
         #container z combo boxami
         containter_combo_boxy = QWidget()
         layout_combo_boxy = QHBoxLayout(containter_combo_boxy)
