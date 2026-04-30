@@ -1,7 +1,7 @@
 import http.client
 import json
 
-from steam_api_module import steam_id_finder
+from steam_xml import steam_id_finder
 
 def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-api
     conn = http.client.HTTPSConnection("api.deadlock-api.com")
