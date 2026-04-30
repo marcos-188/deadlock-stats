@@ -1,8 +1,7 @@
 import http.client
 import json
-from asyncio.windows_events import NULL
 
-from id_scrapper_module import steam_id_scrapper
+from steam_api_module import steam_id_finder
 
 def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-api
     conn = http.client.HTTPSConnection("api.deadlock-api.com")
@@ -55,20 +54,8 @@ def wypisz_statystyki(gry):
     \nŚredni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut''')
 
 def steam_id_find_gui(steam_link):
-    wynik = steam_id_scrapper(steam_link)
+    wynik = steam_id_finder(steam_link)
     if isinstance(wynik, int):
         return wynik
     else:
         raise ValueError(f"Nie udało się pobrać ID: {wynik}")
-
-def main():
-    print("Statystyki Deadlock dla biednych :)")
-    gry_count = int(input("Z ilu ostatnich gier pobrać dane : "))
-    steam_id = steam_id_find()
-    czy_brawl = int(input("Czy liczyć gry Brawl (0 - nie, 1 - tak, 2 - tylko brawl : "))
-    ostatnie_gry = pobierz_gry(gry_count, steam_id, czy_brawl)
-    wypisz_statystyki(ostatnie_gry)
-    input("Nacisnij cokolwiek aby zamknąć")
-
-if __name__ == "__main__":
-    main()

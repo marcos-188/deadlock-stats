@@ -3,8 +3,7 @@ import json
 import re
 api_key = "EB499D551A2B30C4A4802CBB41D71C34"
 
-
-def steam_id_scrapper(profil):
+def steam_id_finder(profil):
     profil = profil.rstrip('/')
     steamid64 = None
 
@@ -27,3 +26,6 @@ def steam_id_scrapper(profil):
             return int(dane['response']['steamid'])
         else:
             return f"Wystąpił błąd prawdopodobnie podano zły link. \nPodaj pełny link do profilu Steam."
+
+def steam_profile_finder(steamid64):
+    print()

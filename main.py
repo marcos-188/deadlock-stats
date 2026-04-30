@@ -139,6 +139,7 @@ class MainWindow(QMainWindow):
                 self.line_edit_link.clear()
             else:
                 self.button_statystyki.setEnabled(True)
+                print(steam_id)
                 QMessageBox.information(self,"Sukces",f"Pobrano {len(self.pobrane_gry)} gier.")
 
         except ValueError as e:
