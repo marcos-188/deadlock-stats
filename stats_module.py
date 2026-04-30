@@ -54,14 +54,6 @@ def wypisz_statystyki(gry):
     \nWin rate : {oblicz_winrate(gry)}
     \nŚredni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut''')
 
-def steam_id_find():
-    while True:
-        wynik = steam_id_scrapper(input("Podaj link do profilu steam : "))
-        if isinstance(wynik, int):
-            return wynik
-        else:
-            print(f"Błąd. {wynik}")
-
 def steam_id_find_gui(steam_link):
     wynik = steam_id_scrapper(steam_link)
     if isinstance(wynik, int):
