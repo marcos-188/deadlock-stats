@@ -1,12 +1,12 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
-from PySide6.QtCore import Signal, QEvent, QThread
+from PySide6.QtWidgets import QWidget, QMessageBox
+from PySide6.QtCore import Signal, QEvent
 from ui_login import Ui_Form_login
 from user_save_module import get_app_dir
-from steam_xml import steam_profile_data_finder, steam_id_finder, steam_id_find_gui
+from steam_xml import steam_profile_data_finder, steam_id_find_gui
 
 
 class LoginWindow(QWidget, Ui_Form_login):
-    #login_success = Signal()
+    login_success = Signal(object)
 
     def __init__(self):
         super().__init__()
@@ -37,16 +37,18 @@ class LoginWindow(QWidget, Ui_Form_login):
                     self.plik_zapisu.parent.mkdir(parents=True, exist_ok=True)
                     with open(self.plik_zapisu, "w", encoding="utf-8") as f:
                         f.write(str(self.steamID64))
-                    self.lineEdit_link.setPlaceholderText(f" Znaleziono zapisany link do profilu '{steam_profile_data_finder(self.steamID64)[0]}' (kliknij, aby zmienić)")
-                    self.checkBox_zapisz.setEnabled(False)
-                    self.lineEdit_link.setReadOnly(True)
-                    self.lineEdit_link.clear()
-                elif self.plik_zapisu.exists():
-                    with open(self.plik_zapisu, "r", encoding="utf-8") as f:
-                        self.steamID64 = int(f.read().strip())
-                else:
-                    QMessageBox.warning(self, "Błąd", "Proszę podać link do profilu Steam.")
-                    return
+                    self.login_success.emit(self.steamID64)
+                    self.close()
+
+            elif self.plik_zapisu.exists():
+                with open(self.plik_zapisu, "r", encoding="utf-8") as f:
+                    self.steamID64 = int(f.read().strip())
+                self.login_success.emit(self.steamID64)
+                self.close()
+
+            else:
+                QMessageBox.warning(self, "Błąd", "Proszę podać link do profilu Steam.")
+                return
         except Exception as e:
             QMessageBox.warning(self, "Błąd", str(e))
             self.lineEdit_link.clear()
