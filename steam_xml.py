@@ -40,4 +40,4 @@ def steam_profile_data_finder(steamid64):
     except Exception as e:
         return f"Wystąpił błąd - {e}"
 
-print(steam_profile_data_finder(steam_id_finder('https://steamcommunity.com/id/marcos-zagorz')))
+#print(steam_profile_data_finder(steam_id_finder('https://steamcommunity.com/id/marcos-zagorz')))

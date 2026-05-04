@@ -7,15 +7,10 @@ from PySide6.QtWidgets import (
     QPushButton, QLineEdit, QMainWindow, QMessageBox, QHBoxLayout, QCheckBox)
 
 from stats_module import steam_id_find_gui, pobierz_gry, wypisz_statystyki
+from user_save_module import get_app_dir
 
 
-def get_app_dir(nazwa_programu):
-    katalog_domowy = Path.home()
-    appdata = os.getenv("APPDATA")
-    if appdata:
-        return Path(appdata) / nazwa_programu
-    else:
-        return katalog_domowy / "AppData" / "Roaming" / nazwa_programu
+
 
 
 class MainWindow(QMainWindow):
@@ -152,9 +147,7 @@ class MainWindow(QMainWindow):
         QMessageBox.information(self, "Statystyki", pobrane_satatystyki)
 
     def eventFilter(self, source, event):
-        # Sprawdzamy, czy zdarzenie to kliknięcie w nasze pole linku
         if source is self.line_edit_link and event.type() == QEvent.MouseButtonPress:
-            # Reagujemy tylko, jeśli pole jest zablokowane (jest zapisany link)
             if self.line_edit_link.isReadOnly():
                 odpowiedz = QMessageBox.question(
                     self,
@@ -164,12 +157,11 @@ class MainWindow(QMainWindow):
                 )
 
                 if odpowiedz == QMessageBox.Yes:
-                    # Odblokowujemy pole
                     self.line_edit_link.setReadOnly(False)
                     self.checkbox_zapisz.setEnabled(True)
                     self.line_edit_link.clear()
                     self.line_edit_link.setPlaceholderText("Link do profilu Steam")
-                    # Usuwamy stary plik z dysku
+
                     if self.plik_zapisu.exists():
                         self.plik_zapisu.unlink()
 
