@@ -8,7 +8,7 @@ def steam_id_finder(profil):
 
     try:
         parsed_url = urllib.parse.urlparse(url)
-        conn = http.client.HTTPSConnection(parsed_url.netloc, timeout=2)
+        conn = http.client.HTTPSConnection(parsed_url.netloc, timeout=1)
         full_path = f"{parsed_url.path}?{parsed_url.query}"
         conn.request("GET", full_path)
         response = conn.getresponse()
@@ -26,7 +26,7 @@ def steam_id_finder(profil):
 
 def steam_profile_data_finder(steamid64):
     try:
-        conn = http.client.HTTPSConnection("steamcommunity.com", timeout=2)
+        conn = http.client.HTTPSConnection("steamcommunity.com", timeout=1)
         conn.request("GET", f"/profiles/{steamid64}?xml=1")
         response = conn.getresponse()
         if response.status == 200:
@@ -39,5 +39,12 @@ def steam_profile_data_finder(steamid64):
 
     except Exception as e:
         return f"Wystąpił błąd - {e}"
+
+def steam_id_find_gui(steam_link):
+    wynik = steam_id_finder(steam_link)
+    if isinstance(wynik, int):
+        return wynik
+    else:
+        raise ValueError(f"Nie udało się pobrać ID: {wynik}")
 
 #print(steam_profile_data_finder(steam_id_finder('https://steamcommunity.com/id/marcos-zagorz')))

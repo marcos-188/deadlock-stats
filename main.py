@@ -6,7 +6,8 @@ from PySide6.QtWidgets import (
     QApplication, QLabel, QWidget, QVBoxLayout, QComboBox,
     QPushButton, QLineEdit, QMainWindow, QMessageBox, QHBoxLayout, QCheckBox)
 
-from stats_module import steam_id_find_gui, pobierz_gry, wypisz_statystyki
+from stats_module import pobierz_gry, wypisz_statystyki
+from steam_xml import steam_id_find_gui
 from user_save_module import get_app_dir
 
 

@@ -52,10 +52,3 @@ def wypisz_statystyki(gry):
     \nK/D : {round(avg_stat('player_kills',gry)/avg_stat('player_deaths',gry),2)}
     \nWin rate : {oblicz_winrate(gry)}
     \nŚredni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut''')
-
-def steam_id_find_gui(steam_link):
-    wynik = steam_id_finder(steam_link)
-    if isinstance(wynik, int):
-        return wynik
-    else:
-        raise ValueError(f"Nie udało się pobrać ID: {wynik}")

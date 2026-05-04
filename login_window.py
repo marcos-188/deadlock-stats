@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
-from PySide6.QtCore import Signal, QEvent
+from PySide6.QtCore import Signal, QEvent, QThread
 from ui_login import Ui_Form_login
 from user_save_module import get_app_dir
-from steam_xml import steam_profile_data_finder, steam_id_finder
+from steam_xml import steam_profile_data_finder, steam_id_finder, steam_id_find_gui
 
 
 class LoginWindow(QWidget, Ui_Form_login):
@@ -29,17 +29,17 @@ class LoginWindow(QWidget, Ui_Form_login):
         self.pushButton_szukaj.clicked.connect(self.szukaj_clicked)
 
     def szukaj_clicked(self):
-        print('1')
         steam_link = self.lineEdit_link.text()
         try:
             if steam_link:
-                self.steamID64 = steam_id_finder(steam_link)
+                self.steamID64 = steam_id_find_gui(steam_link)
                 if self.checkBox_zapisz.isChecked():
                     self.plik_zapisu.parent.mkdir(parents=True, exist_ok=True)
                     with open(self.plik_zapisu, "w", encoding="utf-8") as f:
                         f.write(str(self.steamID64))
                     self.lineEdit_link.setPlaceholderText(f" Znaleziono zapisany link do profilu '{steam_profile_data_finder(self.steamID64)[0]}' (kliknij, aby zmienić)")
                     self.checkBox_zapisz.setEnabled(False)
+                    self.lineEdit_link.setReadOnly(True)
                     self.lineEdit_link.clear()
                 elif self.plik_zapisu.exists():
                     with open(self.plik_zapisu, "r", encoding="utf-8") as f:
@@ -48,7 +48,7 @@ class LoginWindow(QWidget, Ui_Form_login):
                     QMessageBox.warning(self, "Błąd", "Proszę podać link do profilu Steam.")
                     return
         except Exception as e:
-            QMessageBox.warning(self, "Błąd", e)
+            QMessageBox.warning(self, "Błąd", str(e))
             self.lineEdit_link.clear()
 
 
