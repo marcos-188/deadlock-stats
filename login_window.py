@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import Signal, QEvent
 from ui_login import Ui_Form_login
-from user_save_module import get_app_dir
+from utilities_module import get_app_dir
 from steam_xml import steam_profile_data_finder, steam_id_find_gui
 
 
@@ -37,8 +37,8 @@ class LoginWindow(QWidget, Ui_Form_login):
                     self.plik_zapisu.parent.mkdir(parents=True, exist_ok=True)
                     with open(self.plik_zapisu, "w", encoding="utf-8") as f:
                         f.write(str(self.steamID64))
-                    self.login_success.emit(self.steamID64)
-                    self.close()
+                self.login_success.emit(self.steamID64)
+                self.close()
 
             elif self.plik_zapisu.exists():
                 with open(self.plik_zapisu, "r", encoding="utf-8") as f:

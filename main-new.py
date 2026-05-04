@@ -4,7 +4,7 @@ from PySide6.QtCore import Signal
 
 from login_window import LoginWindow
 from widgets import ProfileWidget
-from user_save_module import get_app_dir
+from utilities_module import get_app_dir
 #self.plik_zapisu = get_app_dir("DeadlockStats") / "zapisany_steam_id.txt"
 
 #kontroler - uruchamia logowanie i jak przejdzie to otwiera główne okno i zamyka login (chyba xd)

@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (
 
 from stats_module import pobierz_gry, wypisz_statystyki
 from steam_xml import steam_id_find_gui
-from user_save_module import get_app_dir
+from utilities_module import get_app_dir
 
 
 
