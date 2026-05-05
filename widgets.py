@@ -55,4 +55,4 @@ class GameWidget(QWidget, Ui_Form_Game):
         self.label_Dusze.setText(f'{str(round(danegry['net_worth']/1000,2))}k')
         self.label_idgry.setText("Id: "+str(danegry['match_id']))
         self.label_data.setText("📅"+str(datetime.fromtimestamp(danegry['start_time']).strftime('%Y-%m-%d %H:%M:%S')))
-        self.label_duration.setText("⏱️"+str(round(danegry['match_duration_s']/60,2)))
+        self.label_duration.setText(f"⏱️ {danegry['match_duration_s']//60}:{danegry['match_duration_s']%60:02d}  min")

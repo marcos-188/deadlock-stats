@@ -14,7 +14,7 @@ class PostacieWorker(QThread):
         dane = pobierz_postacie()
         self.dane_pobrane.emit(dane)
 
-#kontroler - uruchamia logowanie i jak przejdzie to otwiera główne okno i zamyka login (chyba xd)
+#kontroler - uruchamia logowanie i jak przejdzie to otwiera główne okno
 class Controller:
     def __init__(self):
         self.login_window = LoginWindow()
