@@ -1,6 +1,6 @@
 import http.client
 import urllib.parse
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as eT
 
 def steam_id_finder(profil):
     profil = profil.rstrip('/')
@@ -13,10 +13,10 @@ def steam_id_finder(profil):
         conn.request("GET", full_path)
         response = conn.getresponse()
         if response.status == 200:
-            root = ET.fromstring(response.read())
+            root = eT.fromstring(response.read())
             steamid64 = root.find("steamID64").text
             if steamid64 is not None:
-                return (int(steamid64))
+                return int(steamid64)
             else:
                 return "Nie znaleziono danych, upewnij się że link jest poprawny"
         else:
@@ -30,7 +30,7 @@ def steam_profile_data_finder(steamid64):
         conn.request("GET", f"/profiles/{steamid64}?xml=1")
         response = conn.getresponse()
         if response.status == 200:
-            root = ET.fromstring(response.read())
+            root = eT.fromstring(response.read())
             profile_name = root.find("steamID").text
             profile_pic = root.find("avatarFull").text
             return profile_name, profile_pic
@@ -46,5 +46,3 @@ def steam_id_find_gui(steam_link):
         return wynik
     else:
         raise ValueError(f"Nie udało się pobrać ID: {wynik}")
-
-#print(steam_profile_data_finder(steam_id_finder('https://steamcommunity.com/id/marcos-zagorz')))

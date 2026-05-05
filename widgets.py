@@ -1,11 +1,14 @@
-from PySide6.QtWidgets import QWidget, QMessageBox, QMainWindow
-from utilities_module import load_image_from_url
-from ui_profile import Ui_Form_Profile
+from datetime import datetime
+
+from PySide6.QtWidgets import QWidget, QMainWindow
+
+from steam_xml import steam_profile_data_finder
 from ui_game import Ui_Form_Game
 from ui_main import Ui_MainWindow
-from steam_xml import steam_profile_data_finder
-from datetime import datetime
-from stats_module import pobierz_gry
+from ui_profile import Ui_Form_Profile
+from utilities_module import load_image_from_url
+from utilities_module import pobierz_gry
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, steamid, postacie, parent=None):
@@ -13,7 +16,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.steamID64 = steamid
         self.dane_postacie = postacie
-        print(self.steamID64)
 
         self.profile_widget = ProfileWidget(self.steamID64)
         self.header_layout.addWidget(self.profile_widget)
@@ -54,4 +56,3 @@ class GameWidget(QWidget, Ui_Form_Game):
         self.label_idgry.setText("Id: "+str(danegry['match_id']))
         self.label_data.setText("📅"+str(datetime.fromtimestamp(danegry['start_time']).strftime('%Y-%m-%d %H:%M:%S')))
         self.label_duration.setText("⏱️"+str(round(danegry['match_duration_s']/60,2)))
-
