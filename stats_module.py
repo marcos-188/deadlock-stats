@@ -1,6 +1,7 @@
 import http.client
 import json
 import requests
+from utilities_module import get_app_dir
 
 from steam_xml import steam_id_finder
 
@@ -22,25 +23,34 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
     return zwrot
 
 def pobierz_postacie():
-    url = "https://assets.deadlock-api.com/v2/heroes"
-    params = {
-        "language": "english",
-        "client_version": "6484",
-        "only_active": "true"
-    }
-    response = requests.get(url, params=params)
-
-    heroes_data = response.json()
-
-    hero_dict = {
-        hero.get('id'):
-        {
-            "name": hero.get("name"),
-            "icon": hero.get("images", {}).get("minimap_image_webp")
+    plik_zapisu = get_app_dir("DeadlockStats") / "postacie.json"
+    if plik_zapisu.exists():
+        with open(plik_zapisu, 'r', encoding='utf-8') as plik:
+            return json.load(plik)
+    else:
+        url = "https://assets.deadlock-api.com/v2/heroes"
+        params = {
+            "language": "english",
+            "client_version": "6484",
+            "only_active": "true"
         }
-        for hero in heroes_data if hero.get("id") is not None
-    }
-    return hero_dict
+        response = requests.get(url, params=params)
+
+        heroes_data = response.json()
+
+        hero_dict = {
+            hero.get('id'):
+            {
+                "name": hero.get("name"),
+                "icon": hero.get("images", {}).get("minimap_image_webp")
+            }
+            for hero in heroes_data if hero.get("id") is not None
+        }
+
+        with open(plik_zapisu, 'w', encoding='utf-8') as plik:
+            json.dump(hero_dict, plik, ensure_ascii=False, indent=4)
+
+        return hero_dict
 
 def avg_stat(stat, gry):
     suma = 0
