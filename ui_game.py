@@ -37,6 +37,7 @@ class Ui_Form_Game(object):
         self.gridLayout = QGridLayout()
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(6, -1, -1, -1)
         self.label_heroicon = QLabel(Form_Game)
         self.label_heroicon.setObjectName(u"label_heroicon")
         sizePolicy.setHeightForWidth(self.label_heroicon.sizePolicy().hasHeightForWidth())
@@ -71,8 +72,12 @@ class Ui_Form_Game(object):
         self.label_wynik.setMaximumSize(QSize(128, 32))
         self.label_wynik.setBaseSize(QSize(32, 64))
         font1 = QFont()
-        font1.setPointSize(12)
+        font1.setFamilies([u"VALVE Oracle"])
+        font1.setPointSize(14)
+        font1.setBold(True)
+        font1.setItalic(True)
         self.label_wynik.setFont(font1)
+        self.label_wynik.setTextFormat(Qt.TextFormat.PlainText)
 
         self.verticalLayout_3.addWidget(self.label_wynik)
 
@@ -81,12 +86,7 @@ class Ui_Form_Game(object):
 
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(6, -1, -1, -1)
-        self.label_idgry = QLabel(Form_Game)
-        self.label_idgry.setObjectName(u"label_idgry")
-
-        self.verticalLayout_4.addWidget(self.label_idgry)
-
+        self.verticalLayout_4.setContentsMargins(0, -1, -1, -1)
         self.label_data = QLabel(Form_Game)
         self.label_data.setObjectName(u"label_data")
 
@@ -96,6 +96,14 @@ class Ui_Form_Game(object):
         self.label_duration.setObjectName(u"label_duration")
 
         self.verticalLayout_4.addWidget(self.label_duration)
+
+        self.label_idgry = QLabel(Form_Game)
+        self.label_idgry.setObjectName(u"label_idgry")
+        font2 = QFont()
+        font2.setPointSize(8)
+        self.label_idgry.setFont(font2)
+
+        self.verticalLayout_4.addWidget(self.label_idgry)
 
 
         self.gridLayout.addLayout(self.verticalLayout_4, 1, 0, 1, 2)
@@ -151,9 +159,9 @@ class Ui_Form_Game(object):
         self.label_heroicon.setText(QCoreApplication.translate("Form_Game", u"Ikonka", None))
         self.label_heroname.setText(QCoreApplication.translate("Form_Game", u"Nazwa", None))
         self.label_wynik.setText(QCoreApplication.translate("Form_Game", u"Wynik", None))
-        self.label_idgry.setText(QCoreApplication.translate("Form_Game", u"ID gry", None))
         self.label_data.setText(QCoreApplication.translate("Form_Game", u"Data", None))
         self.label_duration.setText(QCoreApplication.translate("Form_Game", u"Duration", None))
+        self.label_idgry.setText(QCoreApplication.translate("Form_Game", u"ID gry", None))
         self.label_KDA.setText(QCoreApplication.translate("Form_Game", u"K/D/A", None))
         self.label_Dusze.setText(QCoreApplication.translate("Form_Game", u"Dusze", None))
         self.label_MVP.setText(QCoreApplication.translate("Form_Game", u"Sratatata(MVP)", None))

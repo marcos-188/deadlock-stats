@@ -49,6 +49,9 @@
    </property>
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="leftMargin">
+      <number>6</number>
+     </property>
      <property name="spacing">
       <number>0</number>
      </property>
@@ -152,11 +155,17 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>VALVE Oracle</family>
+           <pointsize>14</pointsize>
+           <italic>true</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
           <string>Wynik</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::TextFormat::PlainText</enum>
          </property>
         </widget>
        </item>
@@ -165,15 +174,8 @@
      <item row="1" column="0" colspan="2">
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="leftMargin">
-        <number>6</number>
+        <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="label_idgry">
-         <property name="text">
-          <string>ID gry</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="label_data">
          <property name="text">
@@ -185,6 +187,18 @@
         <widget class="QLabel" name="label_duration">
          <property name="text">
           <string>Duration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_idgry">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>ID gry</string>
          </property>
         </widget>
        </item>

@@ -1,5 +1,6 @@
 import http.client
 import json
+import requests
 
 from steam_xml import steam_id_finder
 
@@ -19,6 +20,27 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
     zwrot = dane[:gry_count]
     conn.close()
     return zwrot
+
+def pobierz_postacie():
+    url = "https://assets.deadlock-api.com/v2/heroes"
+    params = {
+        "language": "english",
+        "client_version": "6484",
+        "only_active": "true"
+    }
+    response = requests.get(url, params=params)
+
+    heroes_data = response.json()
+
+    hero_dict = {
+        hero.get('id'):
+        {
+            "name": hero.get("name"),
+            "icon": hero.get("images", {}).get("minimap_image_webp")
+        }
+        for hero in heroes_data if hero.get("id") is not None
+    }
+    return hero_dict
 
 def avg_stat(stat, gry):
     suma = 0
