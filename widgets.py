@@ -13,7 +13,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.steamID64 = steamid
         self.dane_postacie = postacie
-        print(self.dane_postacie[2])
         print(self.steamID64)
 
         self.profile_widget = ProfileWidget(self.steamID64)

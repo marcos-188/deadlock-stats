@@ -1,13 +1,13 @@
-import http.client
-
-conn = http.client.HTTPSConnection("assets.deadlock-api.com")
-
-conn.request("GET", "/v2/heroes?language=english&client_version=6484&only_active=true")
-
-response = conn.getresponse()
-print(response.read().decode())
-
-conn.close()
+# import http.client
+#
+# conn = http.client.HTTPSConnection("assets.deadlock-api.com")
+#
+# conn.request("GET", "/v2/heroes?language=english&client_version=6484&only_active=true")
+#
+# response = conn.getresponse()
+# print(response.read().decode())
+#
+# conn.close()
 
 # import http.client
 #
@@ -27,6 +27,6 @@ conn.close()
 import requests
 import json
 
-# from stats_module import pobierz_postacie
-#
-# print(pobierz_postacie())
+from stats_module import pobierz_postacie
+
+print(pobierz_postacie())

@@ -2,6 +2,7 @@ import http.client
 import json
 import requests
 from utilities_module import get_app_dir
+import pickle
 
 from steam_xml import steam_id_finder
 
@@ -23,10 +24,10 @@ def pobierz_gry(gry_count, steam_id, czy_brawl): #pobieranie danych z deadlock-a
     return zwrot
 
 def pobierz_postacie():
-    plik_zapisu = get_app_dir("DeadlockStats") / "postacie.json"
+    plik_zapisu = get_app_dir("DeadlockStats") / "postacie.pkl"
     if plik_zapisu.exists():
-        with open(plik_zapisu, 'r', encoding='utf-8') as plik:
-            return json.load(plik)
+        with open(plik_zapisu, 'rb') as plik:
+            return pickle.load(plik)
     else:
         url = "https://assets.deadlock-api.com/v2/heroes"
         params = {
@@ -47,8 +48,8 @@ def pobierz_postacie():
             for hero in heroes_data if hero.get("id") is not None
         }
 
-        with open(plik_zapisu, 'w', encoding='utf-8') as plik:
-            json.dump(hero_dict, plik, ensure_ascii=False, indent=4)
+        with open(plik_zapisu, 'wb') as plik:
+            pickle.dump(hero_dict, plik)
 
         return hero_dict
 
