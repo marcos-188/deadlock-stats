@@ -5,6 +5,7 @@ from ui_game import Ui_Form_Game
 from ui_main import Ui_MainWindow
 from steam_xml import steam_profile_data_finder
 from datetime import datetime
+from stats_module import pobierz_gry
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, steamid, postacie, parent=None):
@@ -18,7 +19,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.profile_widget = ProfileWidget(self.steamID64)
         self.header_layout.addWidget(self.profile_widget)
 
-
+        self.gry = pobierz_gry(0, self.steamID64, 0)
+        for n in range(5):
+            danepostaci = self.dane_postacie.get(self.gry[n]['hero_id'])
+            nowe_okno = GameWidget(self.gry[n],danepostaci)
+            self.scroll_layout.addWidget(nowe_okno)
 
 
 class ProfileWidget(QWidget, Ui_Form_Profile):
