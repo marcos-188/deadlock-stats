@@ -1,5 +1,4 @@
-import sys
-import os
+import os, shutil
 from pathlib import Path
 import urllib.request
 from PySide6.QtGui import QPixmap
@@ -16,6 +15,19 @@ def get_app_dir(nazwa_programu):
     else:
         return katalog_domowy / "AppData" / "Roaming" / nazwa_programu
 
+def usun_cache():
+    folder = get_app_dir("DeadlockStats")
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
 def load_image_from_url(url, label):
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -30,7 +42,7 @@ def load_image_from_url(url, label):
         print(f"Nie udało się załadować obrazka: {e}")
         label.setText("Błąd ładowania obrazka")
 
-def pobierz_gry(gry_count, steam_id, czy_brawl):
+def pobierz_gry(steam_id, czy_brawl):
     conn = http.client.HTTPSConnection("api.deadlock-api.com")
     conn.request("GET", f"/v1/players/{steam_id}/match-history?force_refetch=false")
     response = conn.getresponse()
@@ -41,9 +53,7 @@ def pobierz_gry(gry_count, steam_id, czy_brawl):
         dane = [x for x in json.loads(surowe_dane) if x.get('game_mode') == 4]
     else:
         dane = json.loads(surowe_dane)
-    if gry_count > len(dane) or gry_count == 0: #jeżeli nie ma aż tylu gier albo wybrano wszystkie zwraca wszystko co znajdzie
-        gry_count = len(dane)
-    zwrot = dane[:gry_count]
+    zwrot = dane
     conn.close()
     return zwrot
 

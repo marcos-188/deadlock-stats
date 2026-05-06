@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import Signal, QEvent
 from ui_login import Ui_Form_login
-from utilities_module import get_app_dir
+from utilities_module import get_app_dir, usun_cache
 from steam_xml import steam_profile_data_finder, steam_id_find_gui
 
 
@@ -48,6 +48,7 @@ class LoginWindow(QWidget, Ui_Form_login):
 
             else:
                 QMessageBox.warning(self, "Błąd", "Proszę podać link do profilu Steam.")
+                usun_cache()
                 return
         except Exception as e:
             QMessageBox.warning(self, "Błąd", str(e))

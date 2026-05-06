@@ -1,6 +1,7 @@
 import http.client
 import urllib.parse
 import xml.etree.ElementTree as eT
+from utilities_module import usun_cache
 
 def steam_id_finder(profil):
     profil = profil.rstrip('/')
@@ -18,9 +19,12 @@ def steam_id_finder(profil):
             if steamid64 is not None:
                 return int(steamid64)
             else:
+                usun_cache()
                 return "Nie znaleziono danych, upewnij się że link jest poprawny"
         else:
+            usun_cache()
             return f"Błąd połączenia. Kod statusu HTTP: {response.status}."
+
     except Exception as e:
         return f"Wystąpił błąd - {e}"
 

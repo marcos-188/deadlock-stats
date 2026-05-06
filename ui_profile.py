@@ -34,7 +34,7 @@ class Ui_Form_Profile(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_awatar.sizePolicy().hasHeightForWidth())
         self.label_awatar.setSizePolicy(sizePolicy)
-        self.label_awatar.setMinimumSize(QSize(128, 128))
+        self.label_awatar.setMinimumSize(QSize(184, 184))
         self.label_awatar.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.label_awatar, 0, 0, 1, 1)

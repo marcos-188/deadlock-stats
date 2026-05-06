@@ -1,13 +1,16 @@
 from datetime import datetime
 
+from PySide6.QtCore import QThread
 from PySide6.QtWidgets import QWidget, QMainWindow
 
 from steam_xml import steam_profile_data_finder
 from ui_game import Ui_Form_Game
 from ui_main import Ui_MainWindow
 from ui_profile import Ui_Form_Profile
+from ui_overwiew import Ui_Form_Overwiew
 from utilities_module import load_image_from_url
 from utilities_module import pobierz_gry
+from stats_module import oblicz_winrate, kda
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -20,11 +23,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.profile_widget = ProfileWidget(self.steamID64)
         self.header_layout.addWidget(self.profile_widget)
 
-        self.gry = pobierz_gry(0, self.steamID64, 0)
+        self.gry = pobierz_gry(self.steamID64, 0)
         for n in range(5):
             danepostaci = self.dane_postacie.get(self.gry[n]['hero_id'])
             nowe_okno = GameWidget(self.gry[n],danepostaci)
             self.scroll_layout.addWidget(nowe_okno)
+        self.overwiew = OverwiewWidget(self.gry)
+        self.overwiew_layout.addWidget(self.overwiew)
 
 
 class ProfileWidget(QWidget, Ui_Form_Profile):
@@ -56,3 +61,22 @@ class GameWidget(QWidget, Ui_Form_Game):
         self.label_idgry.setText("Id: "+str(danegry['match_id']))
         self.label_data.setText("📅"+str(datetime.fromtimestamp(danegry['start_time']).strftime('%Y-%m-%d %H:%M:%S')))
         self.label_duration.setText(f"⏱️ {danegry['match_duration_s']//60}:{danegry['match_duration_s']%60:02d}  min")
+
+class OverwiewWidget(QWidget, Ui_Form_Overwiew):
+    def __init__(self, gry, parent=None):
+        super(OverwiewWidget, self).__init__(parent)
+        self.setupUi(self)
+
+        self.win_loss = oblicz_winrate(gry)
+        self.label_winrate.setText(str(self.win_loss[0])+"%")
+        if self.win_loss[1]<self.win_loss[2]:
+            self.label_winrate.setStyleSheet("color: rgb(221, 63, 51)")
+        elif self.win_loss[1]>self.win_loss[2]:
+            self.label_winrate.setStyleSheet("color: rgb(76, 175, 80)")
+        self.label_WL.setText(f"W:{str(self.win_loss[1])} L:{str(self.win_loss[2])}")
+
+        self.kill_death_assist = kda(gry)
+        self.label_KD.setText(str(round(self.kill_death_assist[0]/self.kill_death_assist[1],2)))
+        self.label_kkddaa.setText(f'K:{self.kill_death_assist[0]} D:{self.kill_death_assist[1]} A:{self.kill_death_assist[2]}')
+
+

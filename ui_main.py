@@ -15,33 +15,33 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMenuBar,
-    QScrollArea, QSizePolicy, QStatusBar, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QMainWindow,
+    QMenuBar, QScrollArea, QSizePolicy, QSpacerItem,
+    QStatusBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1200, 700)
+        MainWindow.resize(850, 713)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(800, 700))
-        MainWindow.setBaseSize(QSize(1200, 700))
+        MainWindow.setMinimumSize(QSize(850, 675))
+        MainWindow.setBaseSize(QSize(1000, 700))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy1)
-        self.centralwidget.setMinimumSize(QSize(1200, 600))
+        self.centralwidget.setMinimumSize(QSize(820, 670))
         self.centralwidget.setBaseSize(QSize(1200, 800))
-        self.verticalLayout = QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.gridLayout = QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName(u"gridLayout")
         self.header_widget = QWidget(self.centralwidget)
         self.header_widget.setObjectName(u"header_widget")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
@@ -54,7 +54,11 @@ class Ui_MainWindow(object):
         self.header_layout = QVBoxLayout(self.header_widget)
         self.header_layout.setObjectName(u"header_layout")
 
-        self.verticalLayout.addWidget(self.header_widget)
+        self.gridLayout.addWidget(self.header_widget, 0, 0, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer, 0, 2, 1, 1)
 
         self.maincontentWidget = QWidget(self.centralwidget)
         self.maincontentWidget.setObjectName(u"maincontentWidget")
@@ -79,21 +83,35 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.scrollArea)
 
-        self.overwiewWidget = QWidget(self.maincontentWidget)
+
+        self.gridLayout.addWidget(self.maincontentWidget, 1, 0, 1, 1)
+
+        self.overwiewWidget = QWidget(self.centralwidget)
         self.overwiewWidget.setObjectName(u"overwiewWidget")
-        self.overwiewWidget.setMinimumSize(QSize(149, 0))
+        sizePolicy1.setHeightForWidth(self.overwiewWidget.sizePolicy().hasHeightForWidth())
+        self.overwiewWidget.setSizePolicy(sizePolicy1)
+        self.overwiewWidget.setMinimumSize(QSize(274, 274))
+        self.overwiewWidget.setMaximumSize(QSize(548, 16777215))
         self.overwiew_layout = QHBoxLayout(self.overwiewWidget)
+        self.overwiew_layout.setSpacing(0)
         self.overwiew_layout.setObjectName(u"overwiew_layout")
+        self.overwiew_layout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.horizontalLayout.addWidget(self.overwiewWidget)
+        self.verticalLayout.addItem(self.verticalSpacer)
 
 
-        self.verticalLayout.addWidget(self.maincontentWidget)
+        self.overwiew_layout.addLayout(self.verticalLayout)
+
+
+        self.gridLayout.addWidget(self.overwiewWidget, 0, 1, 2, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1200, 22))
+        self.menubar.setGeometry(QRect(0, 0, 850, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
