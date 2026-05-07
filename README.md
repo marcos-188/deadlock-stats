@@ -11,9 +11,11 @@ This project demonstrates my ability to build modular desktop applications, inte
 * **Modular Architecture:** Clean codebase separating UI rendering (`ui_*.py` files) from data processing and utility functions.
 
 ## 📸 Screenshots
-*(Note: Replace these placeholder texts with actual images of your application!)*
-* ![Deadlock Stats Login Screen](login.png)- The entry point of the application where users inputs their steam profile link.
-* ![Deadlock Stats Main Dashboard](stats.png) - The main view showing the aggregated data, winrate, and recent match details for the selected profile.
+* The entry point of the application where users inputs their steam profile link.
+  ![Deadlock Stats Login Screen](login.png)
+  
+* The main view showing the aggregated data, winrate, and recent match details for the selected profile.
+  ![Deadlock Stats Main Dashboard](stats.png) 
 
 ## 🛠️ Technologies & Tools
 * **Language:** Python 3
