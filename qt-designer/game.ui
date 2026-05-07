@@ -261,7 +261,7 @@
      <item>
       <widget class="QLabel" name="label_MVP">
        <property name="text">
-        <string>Sratatata(MVP)</string>
+        <string>Placeholder(MVP)</string>
        </property>
       </widget>
      </item>
@@ -288,7 +288,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Sratatatatat (gracze)</string>
+      <string>Placeholder (gracze)</string>
      </property>
     </widget>
    </item>

@@ -164,7 +164,7 @@ class Ui_Form_Game(object):
         self.label_idgry.setText(QCoreApplication.translate("Form_Game", u"ID gry", None))
         self.label_KDA.setText(QCoreApplication.translate("Form_Game", u"K/D/A", None))
         self.label_Dusze.setText(QCoreApplication.translate("Form_Game", u"Dusze", None))
-        self.label_MVP.setText(QCoreApplication.translate("Form_Game", u"Sratatata(MVP)", None))
-        self.label_Gracze.setText(QCoreApplication.translate("Form_Game", u"Sratatatatat (gracze)", None))
+        self.label_MVP.setText(QCoreApplication.translate("Form_Game", u"Placeholder(MVP)", None))
+        self.label_Gracze.setText(QCoreApplication.translate("Form_Game", u"Placeholder (gracze)", None))
     # retranslateUi
 
