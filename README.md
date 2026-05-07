@@ -12,8 +12,8 @@ This project demonstrates my ability to build modular desktop applications, inte
 
 ## 📸 Screenshots
 *(Note: Replace these placeholder texts with actual images of your application!)*
-* `https://drive.google.com/file/d/1ElZAmooZQY6_z0GCQsOvFGtsFz8IaDnT/view?usp=sharing` - The entry point of the application where users inputs their steam profile link.
-* `https://drive.google.com/file/d/1VbmSdJWgzYi2dhWCQqwNZTqNKH6cNSGy/view?usp=sharing` - The main view showing the aggregated data, winrate, and recent match details for the selected profile.
+* ![Deadlock Stats Login Screen](login.png)- The entry point of the application where users inputs their steam profile link.
+* ![Deadlock Stats Main Dashboard](stats.png) - The main view showing the aggregated data, winrate, and recent match details for the selected profile.
 
 ## 🛠️ Technologies & Tools
 * **Language:** Python 3
