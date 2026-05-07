@@ -12,7 +12,7 @@ This project demonstrates my ability to build modular desktop applications, inte
 
 ## 📸 Screenshots
 *(Note: Replace these placeholder texts with actual images of your application!)*
-* `![Login Screen](link-to-image)` - Brief description of the login/setup view.
+* `https://drive.google.com/file/d/1ElZAmooZQY6_z0GCQsOvFGtsFz8IaDnT/view?usp=sharing` - Brief description of the login/setup view.
 * `![Dashboard/Overview](link-to-image)` - Brief description of the main stats view.
 
 ## 🛠️ Technologies & Tools
