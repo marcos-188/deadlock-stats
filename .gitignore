@@ -1,0 +1,9 @@
+# Ignorowanie plików HTML
+*.html
+
+# Ignorowanie całego folderu build (zalecane)
+build/
+dist/
+
+# Ignorowanie plików środowiska PyCharm/IntelliJ (aby nie musieć śledzić folderu .idea)
+.idea/
