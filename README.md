@@ -1,8 +1,6 @@
 # Deadlock Stats
 
-A desktop graphical user interface (GUI) application built with Python to fetch, process, and display player statistics for the game Deadlock. 
-
-This project demonstrates my ability to build modular desktop applications, integrate with external APIs (Steam), and apply Object-Oriented Programming (OOP) principles by separating backend logic from UI components.
+A desktop graphical user interface application built with Python to fetch, process, and display player statistics for the game Deadlock. 
 
 ## 🚀 Features
 * **Player Statistics Tracking:** Fetches and displays game data.
