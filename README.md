@@ -14,6 +14,7 @@ Aplikacja desktopowa służąca do śledzenia i analizowania statystyk graczy w 
 ##  Funkcje
 
 * **Integracja ze Steam:** Pobieranie publicznych danych profilu za pomocą Steam XML API.
+* **Integracja ze Deadlock API:** Pobieranie danych graczi i gier z publicznego Deadlock API.
 * **Przegląd Profilu:** Szybki podgląd ogólnych statystyk gracza.
 * **Szczegółowe Statystyki:** Analiza wyników ostatnich meczów.
 
