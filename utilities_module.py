@@ -46,16 +46,15 @@ def pobierz_gry(steam_id, czy_brawl):
     conn = http.client.HTTPSConnection("api.deadlock-api.com")
     conn.request("GET", f"/v1/players/{steam_id}/match-history?force_refetch=false")
     response = conn.getresponse()
-    surowe_dane = response.read().decode('utf-8')
+    dane_json = json.loads(response.read().decode('utf-8'))
     if czy_brawl == 0: #zależnie od wyboru użytkownika odrzuca gry Brawl, pobiera wszystkie albo pobiera tylko Brawl
-        dane = [x for x in json.loads(surowe_dane) if x.get('game_mode') == 1]
+        dane = [x for x in dane_json if x.get('game_mode') == 1]
     elif czy_brawl == 2:
-        dane = [x for x in json.loads(surowe_dane) if x.get('game_mode') == 4]
+        dane = [x for x in dane_json if x.get('game_mode') == 4]
     else:
-        dane = json.loads(surowe_dane)
-    zwrot = dane
+        dane = dane_json
     conn.close()
-    return zwrot
+    return dane
 
 def pobierz_postacie():
     plik_zapisu = get_app_dir("DeadlockStats") / "postacie.pkl"
