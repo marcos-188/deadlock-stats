@@ -3,15 +3,18 @@ import sys
 from PySide6.QtCore import Signal, QThread
 from PySide6.QtWidgets import QApplication
 from login_window import LoginWindow
-from utilities_module import pobierz_postacie
+from utilities_module import pobierz_postacie, pobierz_postacie_z_api
 from widgets import MainWindow
 
 
 class PostacieWorker(QThread):
     dane_pobrane = Signal(object)
     def run(self):
-        dane = pobierz_postacie()
-        self.dane_pobrane.emit(dane)
+        dane = pobierz_postacie_z_api()
+        heroes_dict = {
+            hero["id"]:hero for hero in dane
+        }
+        self.dane_pobrane.emit(heroes_dict)
 
 #kontroler - uruchamia logowanie i jak przejdzie to otwiera główne okno
 class Controller:

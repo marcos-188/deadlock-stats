@@ -92,7 +92,7 @@ class GameWidget(QWidget, Ui_Form_Game):
         self.setupUi(self)
 
         self.label_heroname.setText(str(danepostaci['name']))
-        load_image_from_url(danepostaci['icon'], self.label_heroicon)
+        load_image_from_url(danepostaci['image_url'], self.label_heroicon)
 
         self.label_KDA.setText(f'{danegry["player_kills"]}/{danegry["player_deaths"]}/{danegry["player_assists"]}')
         if danegry['player_team'] == danegry['match_result']:

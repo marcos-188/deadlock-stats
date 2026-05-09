@@ -56,37 +56,6 @@ def pobierz_gry(steam_id, czy_brawl):
     conn.close()
     return dane
 
-def pobierz_postacie():
-    plik_zapisu = get_app_dir("DeadlockStats") / "postacie.pkl"
-    if plik_zapisu.exists():
-        with open(plik_zapisu, 'rb') as plik:
-            return pickle.load(plik)
-    else:
-        url = "https://assets.deadlock-api.com/v2/heroes"
-        params = {
-            "language": "english",
-            "client_version": "6484",
-            "only_active": "true"
-        }
-        response = requests.get(url, params=params)
-
-        heroes_data = response.json()
-
-        hero_dict = {
-            hero.get('id'):
-            {
-                "name": hero.get("name"),
-                "icon": hero.get("images", {}).get("minimap_image_webp")
-            }
-            for hero in heroes_data if hero.get("id") is not None
-
-        }
-
-        with open(plik_zapisu, 'wb') as plik:
-            pickle.dump(hero_dict, plik)
-
-        return hero_dict
-
 def pobierz_steam_z_api(link):
     url = "http://localhost:6969/steamdata/"
     params = {"link": link}
@@ -98,5 +67,15 @@ def pobierz_steam_z_api(link):
         profpic = dane['profpic']
         return steamid, profname, profpic
     elif odpowiedz.status_code == 400:
+        raise ValueError(f"Nie udało się pobrać ID: {odpowiedz.json()['details']}")
+    return None
+
+def pobierz_postacie_z_api():
+    url = "http://localhost:6969/heroes"
+    odpowiedz = requests.get(url, timeout=5)
+    if odpowiedz.status_code == 200:
+        dane = odpowiedz.json()
+        return dane
+    else:
         raise ValueError(f"Nie udało się pobrać ID: {odpowiedz.json()['details']}")
     return None

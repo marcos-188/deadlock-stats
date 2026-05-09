@@ -34,12 +34,3 @@ def oblicz_winrate(gry):
         else:
             loss += 1
     return [round(win / len(gry) * 100, 2), win, loss]
-
-def wypisz_statystyki(gry):
-    return (f'''Statystyki z ostatnich {len(gry)} gier :
-    \nŚrednia zabójstw : {avg_stat('player_kills',gry)}
-    \nŚrednia śmierci : {avg_stat('player_deaths',gry)}
-    \nŚrednia asyst : {avg_stat('player_assists',gry)}
-    \nK/D : {round(avg_stat('player_kills',gry)/avg_stat('player_deaths',gry),2)}
-    \nWin rate : {oblicz_winrate(gry)}
-    \nŚredni czas gry : {round(avg_stat('match_duration_s',gry)/60,2)} minut''')
