@@ -1,9 +1,7 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import Signal, QEvent
 from ui_login import Ui_Form_login
-from utilities_module import get_app_dir, usun_cache
-from steam_xml import steam_profile_data_finder, steam_id_find_gui
-
+from utilities_module import get_app_dir, usun_cache, pobierz_steam_z_api
 
 class LoginWindow(QWidget, Ui_Form_login):
     login_success = Signal(object)
@@ -18,7 +16,8 @@ class LoginWindow(QWidget, Ui_Form_login):
         if self.plik_zapisu.exists():
             with open(self.plik_zapisu, "r", encoding="utf-8") as f:
                 self.steamID64 = int(f.read().strip())
-            self.lineEdit_link.setPlaceholderText(f" Znaleziono zapisany link do profilu '{steam_profile_data_finder(self.steamID64)[0]}' (kliknij, aby zmienić)")
+            self.steamdata = pobierz_steam_z_api(self.steamID64)
+            self.lineEdit_link.setPlaceholderText(f" Znaleziono zapisany link do profilu '{self.steamdata[1]}' (kliknij, aby zmienić)")
             self.lineEdit_link.setReadOnly(True)  # Blokujemy wpisywanie
             self.lineEdit_link.installEventFilter(self)
             self.checkBox_zapisz.setChecked(True)
@@ -32,18 +31,16 @@ class LoginWindow(QWidget, Ui_Form_login):
         steam_link = self.lineEdit_link.text()
         try:
             if steam_link:
-                self.steamID64 = steam_id_find_gui(steam_link)
+                self.steamdata = pobierz_steam_z_api(steam_link)
                 if self.checkBox_zapisz.isChecked():
                     self.plik_zapisu.parent.mkdir(parents=True, exist_ok=True)
                     with open(self.plik_zapisu, "w", encoding="utf-8") as f:
-                        f.write(str(self.steamID64))
-                self.login_success.emit(self.steamID64)
+                        f.write(str(self.steamdata)[0])
+                self.login_success.emit(self.steamdata)
                 self.close()
 
-            elif self.plik_zapisu.exists():
-                with open(self.plik_zapisu, "r", encoding="utf-8") as f:
-                    self.steamID64 = int(f.read().strip())
-                self.login_success.emit(self.steamID64)
+            elif self.plik_zapisu.exists() and not steam_link:
+                self.login_success.emit(self.steamdata)
                 self.close()
 
             else:
@@ -53,7 +50,6 @@ class LoginWindow(QWidget, Ui_Form_login):
         except Exception as e:
             QMessageBox.warning(self, "Błąd", str(e))
             self.lineEdit_link.clear()
-
 
     #jeżeli jest już zapisane steam id i zablokuje sie przez to wpisywanie to program na kliknięcie pola wprowadzania linku wyświetla komunikat że już znaleziono zapisany profil
     def eventFilter(self, source, event):

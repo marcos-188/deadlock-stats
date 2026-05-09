@@ -2,7 +2,6 @@ import sys
 
 from PySide6.QtCore import Signal, QThread
 from PySide6.QtWidgets import QApplication
-
 from login_window import LoginWindow
 from utilities_module import pobierz_postacie
 from widgets import MainWindow
@@ -29,12 +28,12 @@ class Controller:
         self.worker_thread.dane_pobrane.connect(self.zapisz_postacie)
         self.worker_thread.start()
 
-    def sprawdz_czy_gotowe(self, steamid):
+    def sprawdz_czy_gotowe(self, steamdata):
         if self.postacie_gotowe:
-            self.otworz_main(steamid, self.postacie_dane)
+            self.otworz_main(steamdata, self.postacie_dane)
         else:
-            print("czekam na dane")
-            self.oczekujace_steamid = steamid
+            print("Czekam na dane postaci")
+            self.oczekujace_steamdata = steamdata
 
     def zapisz_postacie(self, dane):
         self.postacie_dane = dane
@@ -46,8 +45,8 @@ class Controller:
     def start(self):
         self.login_window.show()
 
-    def otworz_main(self, steamid, postacie):
-        self.main_window = MainWindow(steamid, postacie)
+    def otworz_main(self, steamdata, postacie):
+        self.main_window = MainWindow(steamdata, postacie)
         self.main_window.show()
 
 if __name__ == "__main__":

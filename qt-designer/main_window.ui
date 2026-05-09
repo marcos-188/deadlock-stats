@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>850</width>
-    <height>766</height>
+    <height>1049</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -74,20 +74,7 @@
       <layout class="QVBoxLayout" name="header_layout"/>
      </widget>
     </item>
-    <item row="0" column="2">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1" rowspan="2">
+    <item row="0" column="2" rowspan="2">
      <widget class="QWidget" name="overwiewWidget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -146,7 +133,20 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" colspan="2">
      <widget class="QWidget" name="maincontentWidget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="leftMargin">
@@ -210,7 +210,7 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="2" column="1">
      <widget class="QWidget" name="pagesWidget" native="true"/>
     </item>
    </layout>

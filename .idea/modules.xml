@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/deadlock-stats.iml" filepath="$PROJECT_DIR$/.idea/deadlock-stats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../deadlock-stats-server/.idea/deadlock-stats-server.iml" filepath="$PROJECT_DIR$/../deadlock-stats-server/.idea/deadlock-stats-server.iml" />
     </modules>
   </component>
 </project>

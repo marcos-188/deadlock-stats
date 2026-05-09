@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(850, 766)
+        MainWindow.resize(850, 1049)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -56,10 +56,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.header_widget, 0, 0, 1, 1)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer, 0, 2, 1, 1)
-
         self.overwiewWidget = QWidget(self.centralwidget)
         self.overwiewWidget.setObjectName(u"overwiewWidget")
         sizePolicy1.setHeightForWidth(self.overwiewWidget.sizePolicy().hasHeightForWidth())
@@ -80,7 +76,11 @@ class Ui_MainWindow(object):
         self.overwiew_layout.addLayout(self.verticalLayout)
 
 
-        self.gridLayout.addWidget(self.overwiewWidget, 0, 1, 2, 1)
+        self.gridLayout.addWidget(self.overwiewWidget, 0, 2, 2, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer, 0, 3, 1, 1)
 
         self.maincontentWidget = QWidget(self.centralwidget)
         self.maincontentWidget.setObjectName(u"maincontentWidget")
@@ -106,12 +106,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.scrollArea)
 
 
-        self.gridLayout.addWidget(self.maincontentWidget, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.maincontentWidget, 1, 0, 1, 2)
 
         self.pagesWidget = QWidget(self.centralwidget)
         self.pagesWidget.setObjectName(u"pagesWidget")
 
-        self.gridLayout.addWidget(self.pagesWidget, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.pagesWidget, 2, 1, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)

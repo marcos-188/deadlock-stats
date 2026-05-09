@@ -79,9 +79,24 @@ def pobierz_postacie():
                 "icon": hero.get("images", {}).get("minimap_image_webp")
             }
             for hero in heroes_data if hero.get("id") is not None
+
         }
 
         with open(plik_zapisu, 'wb') as plik:
             pickle.dump(hero_dict, plik)
 
         return hero_dict
+
+def pobierz_steam_z_api(link):
+    url = "http://localhost:6969/steamdata/"
+    params = {"link": link}
+    odpowiedz = requests.get(url, params=params, timeout=5)
+    if odpowiedz.status_code == 200:
+        dane = odpowiedz.json()
+        steamid = dane['steamid']
+        profname = dane['profname']
+        profpic = dane['profpic']
+        return steamid, profname, profpic
+    elif odpowiedz.status_code == 400:
+        raise ValueError(f"Nie udało się pobrać ID: {odpowiedz.json()['details']}")
+    return None

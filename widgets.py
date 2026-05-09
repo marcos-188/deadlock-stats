@@ -1,32 +1,28 @@
 from datetime import datetime
 
-from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QWidget, QMainWindow
 
-from steam_xml import steam_profile_data_finder
 from ui_game import Ui_Form_Game
 from ui_main import Ui_MainWindow
 from ui_profile import Ui_Form_Profile
 from ui_overwiew import Ui_Form_Overwiew
 from ui_pages import Ui_pagesWidget
-from utilities_module import load_image_from_url
-from utilities_module import pobierz_gry
+from utilities_module import load_image_from_url,pobierz_gry,pobierz_steam_z_api
 from stats_module import oblicz_winrate, kda
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, steamid, postacie, parent=None):
+    def __init__(self, steamdata, postacie, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.steamID64 = steamid
         self.dane_postacie = postacie
 
-        self.profile_widget = ProfileWidget(self.steamID64)
+        self.profile_widget = ProfileWidget(steamdata[1],steamdata[2])
         self.header_layout.addWidget(self.profile_widget)
         self.pages_widget = PagesWidget(self)
         self.gridLayout.addWidget(self.pages_widget)
 
-        self.gry = pobierz_gry(self.steamID64, 0)
+        self.gry = pobierz_gry(steamdata[0], 0)
         self.numer_gry = 0
         self.ile_gier_na_karte = 5
 
@@ -84,14 +80,11 @@ class PagesWidget(QWidget, Ui_pagesWidget):
         self.setupUi(self)
 
 class ProfileWidget(QWidget, Ui_Form_Profile):
-    def __init__(self, steamid ,parent=None):
+    def __init__(self, profname, profpic ,parent=None):
         super(ProfileWidget, self).__init__(parent)
         self.setupUi(self)
-        self.steamID64 = steamid
-        self.dane = steam_profile_data_finder(self.steamID64)
-
-        self.label_nazwa.setText(str(self.dane[0]))
-        load_image_from_url(self.dane[1], self.label_awatar)
+        self.label_nazwa.setText(str(profname))
+        load_image_from_url(profpic, self.label_awatar)
 
 class GameWidget(QWidget, Ui_Form_Game):
     def __init__(self, danegry, danepostaci ,parent=None):
@@ -113,8 +106,6 @@ class GameWidget(QWidget, Ui_Form_Game):
         self.label_data.setText("📅"+str(datetime.fromtimestamp(danegry['start_time']).strftime('%Y-%m-%d %H:%M:%S')))
         self.label_duration.setText(f"⏱️ {danegry['match_duration_s']//60}:{danegry['match_duration_s']%60:02d}  min")
 
-
-
 class OverwiewWidget(QWidget, Ui_Form_Overwiew):
     def __init__(self, gry, parent=None):
         super(OverwiewWidget, self).__init__(parent)
@@ -131,5 +122,3 @@ class OverwiewWidget(QWidget, Ui_Form_Overwiew):
         self.kill_death_assist = kda(gry)
         self.label_KD.setText(str(round(self.kill_death_assist[0]/self.kill_death_assist[1],2)))
         self.label_kkddaa.setText(f'K:{self.kill_death_assist[0]} D:{self.kill_death_assist[1]} A:{self.kill_death_assist[2]}')
-
-
