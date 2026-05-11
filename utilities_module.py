@@ -5,7 +5,9 @@ from PySide6.QtGui import QPixmap
 import http.client
 import json
 import requests
-import pickle
+
+
+#pobieranie z api i inne funkcje
 
 def get_app_dir(nazwa_programu):
     katalog_domowy = Path.home()
@@ -59,7 +61,10 @@ def pobierz_gry(steam_id, czy_brawl):
 def pobierz_steam_z_api(link):
     url = "http://localhost:6969/steamdata/"
     params = {"link": link}
-    odpowiedz = requests.get(url, params=params, timeout=5)
+    # headers = {
+    #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    # }
+    odpowiedz = requests.get(url, params=params,  timeout=5)
     if odpowiedz.status_code == 200:
         dane = odpowiedz.json()
         steamid = dane['steamid']

@@ -15,23 +15,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, steamdata, postacie, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+
         self.dane_postacie = postacie
+        self.gry = pobierz_gry(steamdata[0], 0)
+        self.numer_gry = 0
+        self.ile_gier_na_karte = 5
 
         self.profile_widget = ProfileWidget(steamdata[1],steamdata[2])
         self.header_layout.addWidget(self.profile_widget)
         self.pages_widget = PagesWidget(self)
-        self.gridLayout.addWidget(self.pages_widget)
 
-        self.gry = pobierz_gry(steamdata[0], 0)
-        self.numer_gry = 0
-        self.ile_gier_na_karte = 5
+        self.overwiew = OverwiewWidget(self.gry)
+        self.overwiew_layout.addWidget(self.overwiew)
+
+        self.overwiew_layout.addWidget(self.pages_widget)
 
         self.pages_widget.pushButton_L.clicked.connect(self.lewo)
         self.pages_widget.pushButton_P.clicked.connect(self.prawo)
         self.pages_widget.pushButton_1.clicked.connect(self.zero)
 
-        self.overwiew = OverwiewWidget(self.gry)
-        self.overwiew_layout.addWidget(self.overwiew)
+
 
         self.zaladuj_gry()
 
