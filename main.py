@@ -3,7 +3,7 @@ import sys
 from PySide6.QtCore import Signal, QThread
 from PySide6.QtWidgets import QApplication
 from login_window import LoginWindow
-from utilities_module import pobierz_postacie, pobierz_postacie_z_api
+from utilities_module import pobierz_postacie_z_api
 from widgets import MainWindow
 
 
