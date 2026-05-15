@@ -21,7 +21,6 @@ class Controller:
     def __init__(self):
         self.login_window = LoginWindow()
         self.login_window.login_success.connect(self.sprawdz_czy_gotowe)
-        self.otwarte_okna = []
 
         self.postacie_dane = {}
         self.postacie_gotowe = False

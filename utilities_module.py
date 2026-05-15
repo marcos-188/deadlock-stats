@@ -5,7 +5,7 @@ from PySide6.QtGui import QPixmap
 import http.client
 import json
 import requests
-
+addres = '13.60.230.106'
 
 #pobieranie z api i inne funkcje
 
@@ -59,7 +59,7 @@ def pobierz_gry(steam_id, czy_brawl):
     return dane
 
 def pobierz_steam_z_api(link):
-    url = "http://localhost:6969/steamdata/"
+    url = f"http://{addres}:6969/steamdata/"
     params = {"link": link}
     # headers = {
     #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -76,7 +76,7 @@ def pobierz_steam_z_api(link):
     return None
 
 def pobierz_postacie_z_api():
-    url = "http://localhost:6969/heroes"
+    url = f"http://{addres}:6969/heroes"
     odpowiedz = requests.get(url, timeout=5)
     if odpowiedz.status_code == 200:
         dane = odpowiedz.json()
